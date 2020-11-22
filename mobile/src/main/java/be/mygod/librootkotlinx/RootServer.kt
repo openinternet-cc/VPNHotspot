@@ -133,7 +133,8 @@ class RootServer {
     }
     private fun doInit(context: Context, niceName: String) {
         val (reader, writer) = try {
-            process = ProcessBuilder("su").start()
+            // we dont need ProcessBuilder("su") because we are already running as root context. 
+            process = ProcessBuilder().start()
             val token1 = UUID.randomUUID().toString()
             val writer = DataOutputStream(process.outputStream.buffered())
             writer.writeBytes("echo $token1\n")
